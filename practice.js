@@ -1,4 +1,47 @@
 //Algorithms and datastructure in JavaScript
+/*
+===============================================================
+Given a license plate string which contains letters and numbers, find the shortest word in a dictionary that contains all of the letters in the license plate.
+
+Example:
+License plate: “123 PTS”
+Dictionary: [“stripe”, “step”, “set”]
+Answer: “step”
+===============================================================
+*/
+var plate = “123 PTS”
+var dic = [“stripe”, “step”, “set”];
+Function letterToWord(plate){
+    var letters=[], result=[], min, i, index;
+    letters =plate.replace(/\d\S+/, “”).split(“”);
+    for ( i=0; i<dic.length; i++){
+        if (checkIn(dic[i]))
+result.push(dic[i]);
+}
+if (result.length === 0)
+    return “No dictionary word contains all license plate letters.”
+
+min = result[0].length;
+index = 0;
+    for (i=0; i<result.length; i++){
+    if (result[i].length < min)
+        min = result[i].length;
+        index = i;
+}
+return result[index];
+}
+
+function checkIn(word){
+    for ( i=0; i< letters.length; i++){
+        if(dic[i].indexOf(words[i]) == -1)
+            return false;
+    }
+    return true;
+}
+
+
+
+
 
 //factorial
 function factorial(n) {
@@ -372,3 +415,243 @@ SinglyList.prototype.remove = function(position) {
     return deletedNode;
 };
 
+/* Doubly-Linked List
+A doubly-linked list takes all the functionality of a singly-linked
+ list and extends it for bi-directional movement in a list. We can
+ traverse, in other words, a linked list from the first node in the
+ list to the last node in the list; and we can traverse from the
+ last node in the list to the first node in the list.
+*/
+
+function Node(value) {
+    this.data = value;
+    this.previous = null;
+    this.next = null;
+}
+
+function DoublyList() {
+    this._length = 0;
+    this.head = null;
+    this.tail = null;
+}
+
+DoublyList.prototype.add = function(value) {
+    var node = new Node(value);
+
+    if (this._length) {
+        this.tail.next = node;
+        node.previous = this.tail;
+        this.tail = node;
+    } else {
+        this.head = node;
+        this.tail = node;
+    }
+
+    this._length++;
+
+    return node;
+};
+
+DoublyList.prototype.searchNodeAt = function(position) {
+    var currentNode = this.head,
+        length = this._length,
+        count = 1,
+        message = {failure: 'Failure: non-existent node in this list.'};
+
+    // 1st use-case: an invalid position
+    if (length === 0 || position < 1 || position > length) {
+        throw new Error(message.failure);
+    }
+
+    // 2nd use-case: a valid position
+    while (count < position) {
+        currentNode = currentNode.next;
+        count++;
+    }
+
+    return currentNode;
+};
+
+DoublyList.prototype.remove = function(position) {
+    var currentNode = this.head,
+        length = this._length,
+        count = 1,
+        message = {failure: 'Failure: non-existent node in this list.'},
+        beforeNodeToDelete = null,
+        nodeToDelete = null,
+        deletedNode = null;
+
+    // 1st use-case: an invalid position
+    if (length === 0 || position < 1 || position > length) {
+        throw new Error(message.failure);
+    }
+
+    // 2nd use-case: the first node is removed
+    if (position === 1) {
+        this.head = currentNode.next;
+
+        // 2nd use-case: there is a second node
+        if (!this.head) {
+            this.head.previous = null;
+        // 2nd use-case: there is no second node
+        } else {
+            this.tail = null;
+        }
+
+    // 3rd use-case: the last node is removed
+    } else if (position === this._length) {
+        this.tail = this.tail.previous;
+        this.tail.next = null;
+    // 4th use-case: a middle node is removed
+    } else {
+        while (count < position) {
+            currentNode = currentNode.next;
+            count++;
+        }
+
+        beforeNodeToDelete = currentNode.previous;
+        nodeToDelete = currentNode;
+        afterNodeToDelete = currentNode.next;
+
+        beforeNodeToDelete.next = afterNodeToDelete;
+        afterNodeToDelete.previous = beforeNodeToDelete;
+        deletedNode = nodeToDelete;
+        nodeToDelete = null;
+    }
+
+    this._length--;
+
+    return message.success;
+};
+
+
+
+//Tree
+/*
+Operations of a Tree
+Since every tree contains nodes, which can be a separate constructor
+from a tree, we will outline the operations of both constructors:
+Node and Tree.
+
+Node
+data stores a value.
+parent points to a node's parent.
+children points to the next node in the list.
+Tree
+_root points to the root node of a tree.
+traverseDF(callback) traverses nodes of a tree with DFS.
+traverseBF(callback) traverses nodes of a tree with BFS.
+contains(data, traversal) searches for a node in a tree.
+add(data, toData, traverse) adds a node to a tree.
+remove(child, parent) removes a node in a tree.
+*/
+
+function Node(data) {
+    this.data = data;
+    this.parent = null;
+    this.children = [];
+}
+
+function Tree(data) {
+    var node = new Node(data);
+    this._root = node;
+}
+
+Tree.prototype.traverseDF = function(callback) {
+
+    // this is a recurse and immediately-invoking function
+    (function recurse(currentNode) {
+        // step 2
+        for (var i = 0, length = currentNode.children.length; i < length; i++) {
+            // step 3
+            recurse(currentNode.children[i]);
+        }
+
+        // step 4
+        callback(currentNode);
+
+        // step 1
+    })(this._root);
+
+};
+
+Tree.prototype.traverseBF = function(callback) {
+    var queue = new Queue();
+
+    queue.enqueue(this._root);
+
+    currentTree = queue.dequeue();
+
+    while(currentTree){
+        for (var i = 0, length = currentTree.children.length; i < length; i++) {
+            queue.enqueue(currentTree.children[i]);
+        }
+
+        callback(currentTree);
+        currentTree = queue.dequeue();
+    }
+};
+
+Tree.prototype.contains = function(callback, traversal) {
+    traversal.call(this, callback);
+};
+
+Tree.prototype.add = function(data, toData, traversal) {
+    var child = new Node(data),
+        parent = null,
+        callback = function(node) {
+            if (node.data === toData) {
+                parent = node;
+            }
+        };
+
+    this.contains(callback, traversal);
+
+    if (parent) {
+        parent.children.push(child);
+        child.parent = parent;
+    } else {
+        throw new Error('Cannot add node to a non-existent parent.');
+    }
+};
+
+Tree.prototype.remove = function(data, fromData, traversal) {
+    var tree = this,
+        parent = null,
+        childToRemove = null,
+        index;
+
+    var callback = function(node) {
+        if (node.data === fromData) {
+            parent = node;
+        }
+    };
+
+    this.contains(callback, traversal);
+
+    if (parent) {
+        index = findIndex(parent.children, data);
+
+        if (index === undefined) {
+            throw new Error('Node to remove does not exist.');
+        } else {
+            childToRemove = parent.children.splice(index, 1);
+        }
+    } else {
+        throw new Error('Parent does not exist.');
+    }
+
+    return childToRemove;
+};
+
+function findIndex(arr, data) {
+    var index;
+
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].data === data) {
+            index = i;
+        }
+    }
+
+    return index;
+}

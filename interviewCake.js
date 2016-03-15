@@ -209,7 +209,7 @@ cakes that weigh nothing or duffel bags that can't hold anything. But we're not 
 //ruby
 
   INFINITY = (2 ** (0.size * 8 -2) -1)
-
+/*
 def max_duffel_bag_value(cake_arrays, weight_capacity)
 
     # we make an array to hold the maximum possible value at every
@@ -252,3 +252,37 @@ def max_duffel_bag_value(cake_arrays, weight_capacity)
 
     return max_values_at_capacities[weight_capacity]
 end
+*/
+
+/*
+Write a function for doing an in-place ↴ shuffle of an array.
+The shuffle must be "uniform," meaning each item in the original array must have the same
+probability of ending up in each spot in the final array.
+
+Assume that you have a function getRandom(floor, ceiling) for getting a random integer that
+is >=floor and <=ceiling.
+*/
+
+function getRandom(floor, ceiling) {
+    return Math.floor(Math.random() * (ceiling - floor + 1)) + floor;
+}
+
+function shuffle(theArray) {
+    // if it's 1 or 0 items, just return
+    if (theArray.length <= 1) return;
+
+    // walk through from beginning to end
+    for (var indexWeAreChoosingFor = 0; indexWeAreChoosingFor < theArray.length; indexWeAreChoosingFor++) {
+
+        // choose a random not-yet-placed item to place there
+        // (could also be the item currently in that spot)
+        // must be an item AFTER the current item, because the stuff
+        // before has all already been placed
+        var randomChoiceIndex = getRandom(indexWeAreChoosingFor, theArray.length - 1);
+
+        // place our random choice in the spot by swapping
+        var valueAtIndexWeChoseFor = theArray[indexWeAreChoosingFor];
+        theArray[indexWeAreChoosingFor] = theArray[randomChoiceIndex];
+        theArray[randomChoiceIndex] = valueAtIndexWeChoseFor;
+    }
+}
