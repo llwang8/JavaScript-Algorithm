@@ -953,63 +953,445 @@ function() {
 
 
 /*====================================
+Zipping Arrays
+Sometimes we need to combine two arrays by progressively taking an item from
+each and combining the pair. If you visualize a zipper, where each side is an
+array, and each tooth is an item, you'll have a good idea of how the zip
+operation works.
 
+Exercise 21: Combine videos and bookmarks by index
+
+Use a for loop to traverse the videos and bookmarks array at the same time.
+For each video and bookmark pair, create a {videoId, bookmarkId} pair and add it
+to the videoIdAndBookmarkIdPairs array.
 
 =====================================*/
+function() {
+    var videos = [
+            {
+                "id": 70111470,
+                "title": "Die Hard",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 4.0,
+            },
+            {
+                "id": 654356453,
+                "title": "Bad Boys",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 5.0,
+            },
+            {
+                "id": 65432445,
+                "title": "The Chamber",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 4.0,
+            },
+            {
+                "id": 675465,
+                "title": "Fracture",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 5.0,
+            }
+        ],
+        bookmarks = [
+            {id: 470, time: 23432},
+            {id: 453, time: 234324},
+            {id: 445, time: 987834}
+        ],
+    counter,
+    videoIdAndBookmarkIdPairs = [];
 
+    for(counter = 0; counter < Math.min(videos.length, bookmarks.length); counter++) {
+        // Insert code here to create a {videoId, bookmarkId} pair and add it to the videoIdAndBookmarkIdPairs array.
+    var videoIdAndBookmarkIdPair = {};
+    videoIdAndBookmarkIdPair = {videoId:videos[counter].id, bookmarkId: bookmarks[counter].id};
+    videoIdAndBookmarkIdPairs.push(videoIdAndBookmarkIdPair);
+  }
 
-
-
-
+    return videoIdAndBookmarkIdPairs;
+}
 
 /*====================================
+Exercise 22: Implement zip
 
+Let's add a static zip() function to the Array type. The zip function accepts a
+combiner function, traverses each array at the same time, and calls the combiner
+function on the current item on the left-hand-side and right-hand-side. The zip
+function requires an item from each array in order to call the combiner function,
+therefore the array returned by zip will only be as large as the smallest input array.
 
 =====================================*/
+// JSON.stringify(Array.zip([1,2,3],[4,5,6], function(left, right) { return left + right })) === '[5,7,9]'
 
+Array.zip = function(left, right, combinerFunction) {
+    var counter,
+        results = [];
 
+    for(counter = 0; counter < Math.min(left.length, right.length); counter++) {
+        // Add code here to apply the combinerFunction to the left and right-hand items in the respective arrays
+    results.push(combinerFunction(left[counter], right[counter]));
+  }
 
-
+    return results;
+};
 
 /*====================================
+Exercise 23: Combine videos and bookmarks by index
 
+Let's repeat exercise 21, but this time lets use your new zip() function. For each video and bookmark pair,
+create a {videoId, bookmarkId} pair.
 
 =====================================*/
+function() {
+    var videos = [
+            {
+                "id": 70111470,
+                "title": "Die Hard",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/DieHard.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 4.0,
+            },
+            {
+                "id": 654356453,
+                "title": "Bad Boys",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/BadBoys.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 5.0,
+            },
+            {
+                "id": 65432445,
+                "title": "The Chamber",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/TheChamber.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 4.0,
+            },
+            {
+                "id": 675465,
+                "title": "Fracture",
+                "boxart": "http://cdn-0.nflximg.com/images/2891/Fracture.jpg",
+                "uri": "http://api.netflix.com/catalog/titles/movies/70111470",
+                "rating": 5.0,
+            }
+        ],
+        bookmarks = [
+            {id: 470, time: 23432},
+            {id: 453, time: 234324},
+            {id: 445, time: 987834}
+        ];
 
-
-
-
-
+    return Array.
+        zip(
+          videos,
+          bookmarks,
+          function(video, bookmark) {
+            return {videoId: video.id, bookmarkId: bookmark.id};
+          });
+}
 
 /*====================================
+Exercise 24: Retrieve each video's id, title, middle interesting moment time, and smallest
+box art url.
 
+This is a variation of the problem we solved earlier. This time each video has an interesting
+moments collection, each representing a time during which a screenshot is interesting or
+representative of the title as a whole. Notice that both the boxarts and interestingMoments
+arrays are located at the same depth in the tree. Retrieve the time of the middle interesting
+moment and the smallest box art url simultaneously with zip(). Return an {id, title, time, url}
+object for each video.
 
 =====================================*/
+function() {
+    var movieLists = [
+            {
+                name: "New Releases",
+                videos: [
+                    {
+                        "id": 70111470,
+                        "title": "Die Hard",
+                        "boxarts": [
+                            { width: 150, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
+                            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard200.jpg" }
+                        ],
+                        "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+                        "rating": 4.0,
+                        "interestingMoments": [
+                            { type: "End", time:213432 },
+                            { type: "Start", time: 64534 },
+                            { type: "Middle", time: 323133}
+                        ]
+                    },
+                    {
+                        "id": 654356453,
+                        "title": "Bad Boys",
+                        "boxarts": [
+                            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys200.jpg" },
+                            { width: 140, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg" }
 
+                        ],
+                        "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+                        "rating": 5.0,
+                        "interestingMoments": [
+                            { type: "End", time:54654754 },
+                            { type: "Start", time: 43524243 },
+                            { type: "Middle", time: 6575665}
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "Instant Queue",
+                videos: [
+                    {
+                        "id": 65432445,
+                        "title": "The Chamber",
+                        "boxarts": [
+                            { width: 130, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg" },
+                            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber200.jpg" }
+                        ],
+                        "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+                        "rating": 4.0,
+                        "interestingMoments": [
+                            { type: "End", time:132423 },
+                            { type: "Start", time: 54637425 },
+                            { type: "Middle", time: 3452343}
+                        ]
+                    },
+                    {
+                        "id": 675465,
+                        "title": "Fracture",
+                        "boxarts": [
+                            { width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture200.jpg" },
+                            { width: 120, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture120.jpg" },
+                            { width: 300, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture300.jpg" }
+                        ],
+                        "url": "http://api.netflix.com/catalog/titles/movies/70111470",
+                        "rating": 5.0,
+                        "interestingMoments": [
+                            { type: "End", time:45632456 },
+                            { type: "Start", time: 234534 },
+                            { type: "Middle", time: 3453434}
+                        ]
+                    }
+                ]
+            }
+        ];
 
+    //------------ COMPLETE THIS EXPRESSION --------------
+    return movieLists.concatMap(function(movieList) {
+      return movieList.videos.concatMap(function(video){
+        return Array.zip(
+            video.boxarts.reduce(function(min, cur){
+                if (min.width * min.height < cur.width * cur.height){
+                    return cur;
+                }else {
+                    return min;
+                }
+            }),
+            video.interestingMoments.filter(function(interestingMoment){
+                return interestingMoment.type == "Middle";
+            }),
+            function(boxart, interestingMoment){
+                return {
+                        id: video.id,
+                        title: video.title,
+                        time: interestingMoment.time,
+                        boxart: boxart.url
+                        };
+            });
 
+      });
+    });
 
+}
 
 /*====================================
+Exercise 25: Converting from Arrays to Trees
 
+When information is organized in a tree like a JSON expression, relationships point from
+parent to child. In relational systems like databases, relationships point from children
+to their parents. Both ways of organizing information are equivalent, and depending on the
+circumstances, we might get data organized in one way or another. It may surprise you to
+learn that you can use the 5 query functions you already know to easily convert between
+these representations. In other words, not only can you query arrays from trees, you can
+query trees from arrays.
+
+We have 2 arrays each containing lists, and videos respectively. Each video has a listId
+field indicating its parent list. We want to build an array of list objects, each with a
+name and a videos array. The videos array will contain the video's id and title. In other
+words we want to build the following structure:
+
+[
+    {
+        "name": "New Releases",
+        "videos": [
+            {
+                "id": 65432445,
+                "title": "The Chamber"
+            },
+            {
+                "id": 675465,
+                "title": "Fracture"
+            }
+        ]
+    },
+    {
+        "name": "Thrillers",
+        "videos": [
+            {
+                "id": 70111470,
+                "title": "Die Hard"
+            },
+            {
+                "id": 654356453,
+                "title": "Bad Boys"
+            }
+        ]
+    }
+]
 
 =====================================*/
+function() {
+    var lists = [
+            {
+                "id": 5434364,
+                "name": "New Releases"
+            },
+            {
+                "id": 65456475,
+                "name": "Thrillers"
+            }
+        ],
+        videos = [
+            {
+                "listId": 5434364,
+                "id": 65432445,
+                "title": "The Chamber"
+            },
+            {
+                "listId": 5434364,
+                "id": 675465,
+                "title": "Fracture"
+            },
+            {
+                "listId": 65456475,
+                "id": 70111470,
+                "title": "Die Hard"
+            },
+            {
+                "listId": 65456475,
+                "id": 654356453,
+                "title": "Bad Boys"
+            }
+        ];
 
+  return lists.map(function(list){
+    return {
+        name: list.name,
+        video: videos.filter(function(video){
+            return video.listID == list.id;
+        }).map(function(video){
+            return {id: video.id, title: video.title};
+        })
 
-
-
-
+    };
+  }); // complete this expression
+}
 
 /*====================================
+Exercise 26: Converting from Arrays to Deeper Trees
 
+Let's try creating a deeper tree structure. This time we have 4 separate arrays each containing
+lists, videos, boxarts, and bookmarks respectively. Each object has a parent id, indicating its
+parent. We want to build an array of list objects, each with a name and a videos array. The videos
+array will contain the video's id, title, bookmark time, and smallest boxart url. In other words
+we want to build the following structure:
 
 =====================================*/
+function() {
+    var lists = [
+            {
+                "id": 5434364,
+                "name": "New Releases"
+            },
+            {
+                "id": 65456475,
+                name: "Thrillers"
+            }
+        ],
+        videos = [
+            {
+                "listId": 5434364,
+                "id": 65432445,
+                "title": "The Chamber"
+            },
+            {
+                "listId": 5434364,
+                "id": 675465,
+                "title": "Fracture"
+            },
+            {
+                "listId": 65456475,
+                "id": 70111470,
+                "title": "Die Hard"
+            },
+            {
+                "listId": 65456475,
+                "id": 654356453,
+                "title": "Bad Boys"
+            }
+        ],
+        boxarts = [
+            { videoId: 65432445, width: 130, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber130.jpg" },
+            { videoId: 65432445, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/TheChamber200.jpg" },
+            { videoId: 675465, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture200.jpg" },
+            { videoId: 675465, width: 120, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture120.jpg" },
+            { videoId: 675465, width: 300, height:200, url:"http://cdn-0.nflximg.com/images/2891/Fracture300.jpg" },
+            { videoId: 70111470, width: 150, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
+            { videoId: 70111470, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/DieHard200.jpg" },
+            { videoId: 654356453, width: 200, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys200.jpg" },
+            { videoId: 654356453, width: 140, height:200, url:"http://cdn-0.nflximg.com/images/2891/BadBoys140.jpg" }
+        ],
+        bookmarks = [
+            { videoId: 65432445, time: 32432 },
+            { videoId: 675465, time: 3534543 },
+            { videoId: 70111470, time: 645243 },
+            { videoId: 654356453, time: 984934 }
+        ];
+
+    return list.map(function(list){
+        return {
+            name: list.name,
+            videos: videos.filter(function(video){}).concatMap(function(video){
+                return Array.zip(
+                    bookmarks.filter(function(bookmark){
+                        return bookmark.videoId == video.id;
+                    }),
+                    boxarts.filter(function(boxart){
+                        return boxart.videoId == video.id;
+                    }).reduce(function(min, cur){
+                        return min.width * min.height < cur.width * cur.height ? min : cur;
+
+                        }
+                    }),
+                    function(bookmark, boxart){
+                        return{id:video.id, title.video.title, time:bookmarks.time, boxart:boxart.url};
+                    }
+                    );
+
+            })
+
+        };
+
+
+    }):
 
 
 
-
-
-
+}
 /*====================================
 
 
