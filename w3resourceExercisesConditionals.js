@@ -142,8 +142,28 @@ endlessly in a cycle which does not include 1. Those numbers for which this proc
 1 are happy numbers, while those that do not end in 1 are unhappy numbers (or sad numbers)".
 Write a JavaScript program to find and print the first 5 happy numbers.
 ==============================*/
-
-
+function isHappyNum(n){
+    if (n === 1){
+        return true;
+    }
+    var arr = n.toString().split('').reduce(function(sum, digit){
+        sum += +digit * +digit;
+    }, 0);
+    n = arr.join('');
+    return isHappyNum(n);
+}
+var count = 5;
+var num = 1;
+var result = [];
+while (count > 0){
+    while (!isHappyNum(num)){
+        num ++;
+    };
+    result.push(n);
+    num ++;
+    count --;
+}
+console.log(result);
 /*==============================
 
 9. Write a JavaScript program to find the armstrong numbers of 3 digits. Go to the editor
