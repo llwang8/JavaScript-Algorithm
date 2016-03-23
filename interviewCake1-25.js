@@ -202,11 +202,69 @@ would output 44—the number of ways to make 44¢ with those denominations:
 
 
 
-
 /*==================================
+#6.  A crack team of love scientists from OkEros (a hot new dating site) have devised a way to
+represent dating profiles as rectangles on a two-dimensional plane.
+They need help writing an algorithm to find the intersection of two users' love rectangles.
+They suspect finding that intersection is the key to a matching algorithm so powerful it will
+cause an immediate acquisition by Google or Facebook or Obama or something.
+As with the example above, love rectangles are always "straight" and never "diagonal." More
+rigorously: each side is parallel with either the x-axis or the y-axis.
 
+They are defined as objects ↴ like this:
+
+  var myRectangle = {
+
+    // coordinates of bottom-left corner
+    leftX: 1,
+    bottomY: 5,
+
+    // width and height
+    width: 10,
+    height: 4,
+
+};
+
+Your output rectangle should use this format as well.
 ====================================*/
+function findLoveRectangle(r1, r2){
 
+    function findRangeOverlap(p1, length1, p2, length2){
+        var highestStartPoint = Math.max(p1, p2);
+        var lowestEndPoint = Math.min(p1 + length1, p2 + length2);
+        if (highestStartPoint >= lowestEndPoint){
+            return {
+                    startPoint: null,
+                    overlapLength: null
+                    };
+            };
+        }else {
+            return {
+                    startPoint: highestStartPoint,
+                    overlapLength: lowestEndPoint - highestStartPoint
+                    };
+        }
+    }
+
+    var xOverlap = findRangeOverlap(r1.leftX, r1.width, r2.leftX, r2.width);
+    var yOverlap = findRangeOverlap(r1.bottomY, r1.height, r2.bottomY, r2.height);
+
+    if (!xOverlap.overlapLength || !yOverlap.overlapLength) {
+        return {
+                leftX: null,
+                bottomY: null,
+                width: null,
+                height: null
+        };
+    }else {
+        return {
+                leftX: xOverlap.startPoint,
+                bottomY: yOverlap.startPoint,
+                width: xOverlap.overlapLength,
+                height: yOverlap.overlapLength
+        };
+    }
+}
 
 
 

@@ -146,10 +146,13 @@ function isHappyNum(n){
     if (n === 1){
         return true;
     }
-    var arr = n.toString().split('').reduce(function(sum, digit){
+    if (newNum === 58 || newNum === 4 || newNum == 37) {
+         return false;
+     }
+    var n = n.toString().split('').reduce(function(sum, digit){
         sum += +digit * +digit;
-    }, 0);
-    n = arr.join('');
+    }, 0).join('');
+
     return isHappyNum(n);
 }
 var count = 5;
