@@ -102,8 +102,8 @@ function grades(studentsArr){
     var avgMark = sumMark / studentsArr.length;
     for (var i=0; i<studentsArr.length; i++){
         for (var j=0; j<range.length; j++){
-            if (studentsArr[i].mark < range[i].keys){
-                studnetsArr[i].grade = range[i].value;
+            if (studentsArr[i].mark < parseInt(range[i].keys)){  //????
+                studnetsArr[i].grade = range[i].valueOf;
                 console.log(studentsArr[i].name + " : " + studentsArr[i].grade);
             }
         }
@@ -116,10 +116,23 @@ grades(students);
 
 7. Write a JavaScript program which iterates the integers from 1 to 100. But for multiples
 of three print "Fizz" instead of the number and for the multiples of five print "Buzz". For
-umbers which are multiples of both three and five print "FizzBuzz".
+numbers which are multiples of both three and five print "FizzBuzz".
 ==============================*/
+function fizzBuzz(){
+    for (var i=1; i<=100; i++){
+        if (i%3 === 0 && i%5 === 0){
+            console.log("FizzBuzz");
+        }else if (i%3 === 0) {
+            console.log("Fizz");
+        }else if (i%5 === 0){
+            console.log("Buzz");
+        }else {
+            console.log(i);
+        }
+    }
+}
 
-
+fizzBuzz();
 /*==============================
 
 8. According to Wikipedia a happy number is defined by the following process :
@@ -138,7 +151,13 @@ Note : An Armstrong number of three digits is an integer such that the sum of th
 its digits is equal to the number itself. For example, 371 is an Armstrong number since
 3**3 + 7**3 + 1**3 = 371.
 ==============================*/
-
+for (var i=100; i<500; i++){
+    var arr = i.toString().split('');
+    var sumOfCube = arr[0]*arr[0]*arr[0] + arr[1]*arr[1]*arr[1] + arr[2]*arr[2]*arr[2];
+    if (i == sumOfCube){
+        console.log(i);
+    }
+}
 
 /*==============================
 
@@ -150,8 +169,16 @@ its digits is equal to the number itself. For example, 371 is an Armstrong numbe
 * * * *
 * * * * *
 ==============================*/
-
-
+var n = 1;
+var msg = "";
+while (n < 5){
+    for (var i=1; i<=n; i++ ){
+        msg += "*";
+    }
+    console.log(msg);
+    n += 1;
+    msg = "";
+}
 /*==============================
 
 11. Write a JavaScript program to compute the greatest common divisor (GCD) of two positive
@@ -163,6 +190,11 @@ integers.
 
 12. Write a JavaScript program to sum the multiples of 3 and 5 under 1000.
 ==============================*/
-
-
+var sum = 0;
+for (var i=0; i<1000; i++){
+    if (i%3 === 0 && i%5 === 0){
+        sum += i;
+    }
+}
+console.log(sum);
 /*==============================
