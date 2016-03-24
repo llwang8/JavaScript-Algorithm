@@ -1,7 +1,8 @@
 //Interview Cake
 
 /*==================================
-#1. Suppose we could access yesterday's stock prices as an array, where:
+#1. Apple Stocks
+Suppose we could access yesterday's stock prices as an array, where:
 
 The indices are the time in minutes past trade opening time, which was 9:30am local time.
 The values are the price in dollars of Apple stock at that time.
@@ -45,7 +46,8 @@ function getMaxProfit2(stockPriceArray){
     return maxProfit;
 }
 /*==================================
-#2.  You have an array of integers, and for each index you want to find the product of
+#2.  Products of All Others
+You have an array of integers, and for each index you want to find the product of
 every integer except the integer at that index.
 Write a function getProductsOfAllIntsExceptAtIndex() that takes an array of integers
 and returns an array of the products.
@@ -80,7 +82,8 @@ function getProductsOfAllIntsExceptAtIndex(intArray){
 }
 
 /*==================================
-#3.  Given an arrayOfInts, find the highestProduct you can get from three of the integers.
+#3.  Highest Product of 3
+Given an arrayOfInts, find the highestProduct you can get from three of the integers.
 The input arrayOfInts will always have at least three integers.
 ====================================*/
 function getHighestProductOfThree(intArray){
@@ -118,7 +121,8 @@ function getHighestProductOfThree(intArray){
     return highestProductOf3;
 }
 /*==================================
-#4.  Your company built an in-house calendar tool called HiCal. You want to add a
+#4.  Merge Meeting Times
+Your company built an in-house calendar tool called HiCal. You want to add a
 feature to see the times in a day when everyone is available.
 To do this, you’ll need to know when any team is having a meeting. In HiCal, a
 meeting is stored as objects ↴ with attributes startTime and endTime. These integers
@@ -180,7 +184,8 @@ function condenseMeetingTimes(arrMeeingTimes){
     return mergeTimes;
 }
 /*==================================
-#5. Imagine you landed a new job as a cashier...
+#5. Making Changes
+Imagine you landed a new job as a cashier...
 Your quirky boss found out that you're a programmer and has a weird request about something
 they've been wondering for a long time.
 
@@ -203,7 +208,8 @@ would output 44—the number of ways to make 44¢ with those denominations:
 
 
 /*==================================
-#6.  A crack team of love scientists from OkEros (a hot new dating site) have devised a way to
+#6.  Rectangle Love
+A crack team of love scientists from OkEros (a hot new dating site) have devised a way to
 represent dating profiles as rectangles on a two-dimensional plane.
 They need help writing an algorithm to find the intersection of two users' love rectangles.
 They suspect finding that intersection is the key to a matching algorithm so powerful it will
@@ -269,16 +275,100 @@ function findLoveRectangle(r1, r2){
 
 
 /*==================================
+#7. Temperature Tracker
+You decide to test if your oddly-mathematical heating company is fulfilling its All-Time Max,
+Min, Mean and Mode Temperature Guarantee™.
+Write a class TempTracker with these methods:
+
+insert()—records a new temperature
+getMax()—returns the highest temp we've seen so far
+getMin()—returns the lowest temp we've seen so far
+getMean()—returns the mean ↴ of all temps we've seen so far
+getMode()—returns the mode ↴ of all temps we've seen so far
+Optimize for space and time. Favor speeding up the getter functions (getMax(), getMin(),
+getMean(), and getMode()) over speeding up the insert() function.
+
+getMean() should return a float, but the rest of the getter functions can return integers.
+Temperatures will all be inserted as integers. We'll record our temperatures in Fahrenheit,
+so we can assume they'll all be in the range 0..1100..110.
+
+If there is more than one mode, return any of the modes.
 
 ====================================*/
+function TempTracker(){
+    //for mode
+    this.occurences = [];
+    for (var i=0; i<110; i++){
+        this.occurences[i] = 0;
+    }
+    this.maxOccurrences = 0;
+    this.mode = null;
+    //for mean
+    this.totalNums = 0;
+    this.totalSum = 0;
+    this.mean = 0;
+    //for max, min
+    this.maxTemp = 0;
+    this.minTemp = 0;
 
+}
+TempTracker.prototype.insert = function(temp){
+    //for mode
+    this.occurences[temp] ++;
+    if (this.occurrences[temp] > this.maxOccurrences){
+        this.maxOccurrences = this.occurrences[temp];
+        this.mode = temp;
+    }
+    //for mean
+    this.totalNums ++;
+    this.totalSum += temp;
+    this.mean = this.totalNums / this.totalSum;
+    //for max, min
+    if (this.maxTemp === null || temp > this.maxTemp){
+        this.maxTemp = temp;
+    }
+    if (this.minTemp === null || temp < this.minTemp){
+        this.minTemp = temp;
+    }
+}
 
-
-
-
+TempTracker.prototype.getMax = function(){
+    return this.maxTemp;
+}
+TempTracker.prototype.getMin = function(){
+    return this.minTemp;
+}
+TempTracker.prototype.getMean = function(){
+    return this.mean;
+}
+TempTracker.prototype.getMode = function(){
+    return this.mode;
+}
 
 /*==================================
+#8. Balanced Binary Tree
+Write a function to see if a binary tree ↴ is "superbalanced" (a new tree property we just
+made up).
+A tree is "superbalanced" if the difference between the depths of any two leaf nodes is no
+greater than one.
 
+Here's a sample binary tree node class:
+
+  function BinaryTreeNode(value) {
+    this.value = value;
+    this.left  = null;
+    this.right = null;
+}
+
+BinaryTreeNode.prototype.insertLeft = function(value) {
+    this.left = new BinaryTreeNode(value);
+    return this.left;
+};
+
+BinaryTreeNode.prototype.insertRight = function(value) {
+    this.right = new BinaryTreeNode(value);
+    return this.right;
+};
 ====================================*/
 
 
