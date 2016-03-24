@@ -430,31 +430,128 @@ function bstCheckerRecuisive(treeRoot){
 #10. 2nd Largest Item in Binary Search Tree
 Write a function to find the 2nd largest element in a binary search tree ↴ .
 ====================================*/
+function largestRecursive(rootNode){
+    if (rootNode.right){
+        return largest(rootNode.right);
+    }
+    return rootNode.value;
+}
 
+function secondLargestRecursive(treeRoot){
+    if (!treeRoot) return null;
 
+    var largest = largestRecursive(rootNode);
+    if(!largest.left){
+        return largest.
+    }else {
+        return largestRecursive(largest);
+    }
+}
+//===================
+function findLargest(rootNode){
+    var current = rootNode;
+    while (current){
+        if (!current.right) return current.value;
+        current = current.right;
+    }
+}
 
+function findSecondLargest(rootNode){
+    if (!rootNode.left && !rootNode) {
+        throw new Error("Tree must have at least 2 nodes");
+    }
 
-
-
+    var current = rootNode;
+    while (current){
+        if(current.left && !current.right){
+            return findLargest(current.left);
+        }
+        if (current.right && !current.right.left && !current.right.left){
+            return current.value;
+        }
+        current = current.right;
+    }
+}
 
 /*==================================
+#11. MillionGazillion
+I'm making a search engine called MillionGazillion™.
+I wrote a crawler that visits web pages, stores a few keywords in a database, and
+follows links to other web pages. I noticed that my crawler was wasting a lot of time
+visiting the same pages over and over, so I made an object visited where I'm storing
+URLs I've already visited. Now the crawler only visits a URL if it hasn't already been
+visited.
 
+Thing is, the crawler is running on my old desktop computer in my parents' basement
+(where I totally don't live anymore), and it keeps running out of memory because visited
+is getting so huge.
+
+How can I trim down the amount of space taken up by visited?
 ====================================*/
 
 
 
 
 /*==================================
-
+#12.  Find Ordered Set
+Suppose we had an array ↴ of
+n
+n integers in sorted order. How quickly could we check if a given integer is in the array?
 ====================================*/
 
 
 
 
 /*==================================
+#13.  Find Rotation Point
+I want to learn some big words so people think I'm smart.
+I opened up a dictionary to a page in the middle and started flipping through, looking for
+words I didn't know. I put each word I didn't know at increasing indices in a huge array I
+created in memory. When I reached the end of the dictionary, I started from the beginning
+and did the same thing until I reached the page I started at.
 
+Now I have an array of words that are mostly alphabetical, except they start somewhere in
+the middle of the alphabet, reach the end, and then start from the beginning of the
+alphabet. In other words, this is an alphabetically ordered array that has been "rotated."
+For example:
+
+  var words = [
+    'ptolemaic',
+    'retrograde',
+    'supplant',
+    'undulate',
+    'xenoepist',
+    'asymptote', // <-- rotates here!
+    'babka',
+    'banoffee',
+    'engender',
+    'karpatka',
+    'othellolagkage',
+];
+
+Write a function for finding the index of the "rotation point," which is where I started
+working from the beginning of the dictionary. This array is huge (there are lots of words
+I don't know) so we want to be efficient here.
 ====================================*/
+function findRotationIndex(words){
+    const firstWord = words[0];
+    var floorIndex = 0;
+    var ceilingIndex = words.length -1;
+    var guessIndex;
 
+    while (floorIndex < ceilingIndex){
+        guessIndex = Math.floor(floorIndex + (ceilingIndex - floorIndex)/2);
+        if (words[guessIndex] > firstWord){
+            floorIndex = guessIndex;
+        }else {
+            ceilingIndex = guessIndex;
+        }
+        if (floorIndex + 1 == ceilingIndex){
+            break;
+        }
+    }
+    return ceilingIndex;
+}
 
 
 
