@@ -370,19 +370,65 @@ BinaryTreeNode.prototype.insertRight = function(value) {
     return this.right;
 };
 ====================================*/
-
-
+function BinaryTreeNode() = function(){
+    this.value = null;
+    this.left = null;
+    this.right = null;
+}
+BinaryTreeNode.prototype.insertLeft = function(value){
+    this.left = new BinaryTreeNode(value);
+    return this.left;
+}
+BinaryTreeMode.prototype.insertRight = function(value){
+    this.right = new BinaryTreeNode(value);
+    return this.right;
+}
+BinaryTreeNode.prototype.depthSearch = function(value){
+    if()
+}
 
 
 /*==================================
-
+#9. Binary Search Tree
+Write a function to check that a binary tree ↴ is a valid binary search tree ↴
 ====================================*/
+function bstChecker(treeRoot){
+    var nodeAndBoundsStack = [];
+    nodeAndBoundsStack.push{node: treeRoot, lowerBound: -infinite, upperBound: infinite};
+    while (nodeAndBoundsStack.length){
+        var nodeAndBounds = nodeAndBoundsStack.pop(),
+            lowerBound = nodeAndBounds.lowerBound,
+            upperBound = nodeAndBounds;
 
+        if(node.value < lowerBound || node.value > upperBound){
+            return false;
+        }
 
+        if(node.left){
+            nodeAndBoundsStack.push(node:node.left, lowerBound:lowerBound, upperBound:node.value);
 
+        }
+        if(node.right){
+            nodeAndBoundsStack.push(node:node.right, lowerBound:node.value, upperBound:upperBound);
+        }
+    }
+    return true;
+}
+function bstCheckerRecuisive(treeRoot){
+    lowerBound = lowerBound || -infinite;
+    upperBound = upperBound || infinite;
 
+    if(!treeRoot) return true;
+    if(treeRoot.value > upperBound || treeRoot.value < lowerBound){
+        return false;
+    }
+
+    return bstCheckerRecuisive(treeRoot.left, lowerBound, treeRoot.value) &&
+           bstCheckerRecuisive(treeRoot.right, treeRoot.value, upperBound);
+}
 /*==================================
-
+#10. 2nd Largest Item in Binary Search Tree
+Write a function to find the 2nd largest element in a binary search tree ↴ .
 ====================================*/
 
 
