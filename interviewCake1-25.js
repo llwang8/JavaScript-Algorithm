@@ -970,15 +970,63 @@ functin reversedLinkedList(firstNode){
         previousNode = currentNode;
         currentNode = nextNode;
     }
-
+    return previousNode
 }
 
 
 
 /*==================================
-#25.
-====================================*/
+#25. Kth to the last node in a singled-linked list
+You have a linked list ↴ and want to find the kth to last node.
+Write a function kthToLastNode() that takes an integer k and the headNode of a singly
+linked list, and returns the kth to last node in the list.
 
+For example:
+
+  function LinkedListNode(value) {
+    this.value = value;
+    this.next = null;
+}
+
+var a = new LinkedListNode("Angel Food");
+var b = new LinkedListNode("Bundt");
+var c = new LinkedListNode("Cheese");
+var d = new LinkedListNode("Devil's Food");
+var e = new LinkedListNode("Eccles");
+
+a.next = b;
+b.next = c;
+c.next = d;
+d.next = e;
+====================================*/
+function kthToLastNode(n, firstNode){
+    var arr = [];
+    var currentNode = firstNode;
+    while (currentNode){
+        arr.push(currentNode);
+        currentNode = currentNode.next;
+    }
+    if (n > arr.length){
+        throw new Error("n is great than list's length");
+    }
+    return arr[-k];
+}
+
+function kthToLastNodeStick(k, firstNode){
+    var leftNode = firstNode;
+    var rightNode = firstNode;
+    for (var i=0; i<k; i++){
+        if (!right.next){
+            throw new Error ("invalid entry");
+        }
+        rightNode = rightNode.next;
+    }
+    while(rightNode.next){
+        leftNode = leftNode.next;
+        rightNode = rightNode.next;
+    }
+    return leftNode;
+}
 
 
 
