@@ -721,38 +721,158 @@ function maxDuffelBagValue(cakeTypes, weightCapacity){
 }
 
 /*==================================
-
+#17. JS Scopt
+If we execute this Javascript, what will the browser's console show?
+  var text = 'outside';
+function logIt(){
+    console.log(text);
+    var text = 'inside';
+};
+logIt();
 ====================================*/
 
 
 
 
 /*==================================
+#18. What's wrong with this code?
+We're building a web game where everybody wins and we are all friends forever.
+It's simple—you click on one of three boxes to see what nice thing you've won. You always
+win something nice. Because we love you.
 
+Here's what we have so far. Something's going wrong though. Can you tell what it is?
+
+<button id="btn-0">Button 1!</button>
+<button id="btn-1">Button 2!</button>
+<button id="btn-2">Button 3!</button>
+
+<script type="text/javascript">
+    var prizes = ['A Unicorn!', 'A Hug!', 'Fresh Laundry!'];
+    for (var btnNum = 0; btnNum < prizes.length; btnNum++) {
+        // for each of our buttons, when the user clicks it...
+        document.getElementById('btn-' + btnNum).onclick = function() {
+            // tell her what she's won!
+            alert(prizes[btnNum]);
+        };
+    }
+</script>
+HTML
+The syntax is just fine—the problem is some unexpected behavior.
+====================================*/
+<button id="btn-0">Button 1!</button>
+<button id="btn-1">Button 2!</button>
+<button id="btn-2">Button 3!</button>
+
+<script type="text/javascript">
+    var prizes = ['A Unicorn!', 'A Hug!', 'Fresh Laundry!'];
+    for (var btnNum = 0; btnNum < prizes.length; btnNum++){
+        document.getElementById('btn-' + btnNum).onclick = function(frozenNum){
+            return function(){
+                alert(prizes[frozenNum]);
+            }(btnNum);
+        }
+    }
+</script>
+
+
+/*==================================
+#19. Queue two stacks
+Implement a queue ↴ with 2 stacks ↴ . Your queue should have an enqueue and a dequeue
+function and it should be "first in first out" (FIFO).
+Optimize for the time cost of m function calls on your queue. These can be any mix of
+enqueue and dequeue calls.
+
+Assume you already have a stack implementation and it gives O(1) time push and pop.
 ====================================*/
 
 
 
 
 /*==================================
+#20. Largest Stack
+You want to be able to access the largest element in a stack.
+You've already implemented this Stack class:
 
+  function Stack() {
+    // initialize an empty array
+    this.items = [];
+}
+
+// push a new item to the last index
+Stack.prototype.push = function(item) {
+    this.items.push(item);
+};
+
+// remove the last item
+Stack.prototype.pop = function() {
+
+    // if the stack is empty, return null
+    // (it would also be reasonable to throw an exception)
+    if (!this.items.length) return null;
+
+    return this.items.pop();
+};
+
+// see what the last item is
+Stack.prototype.peek = function() {
+    if (!this.items.length) return null;
+    return this.items[this.items.length -1];
+};
+JavaScript
+Use your Stack class to implement a new class MaxStack with a function getMax() that
+returns the largest element in the stack. getMax() should not remove the item.
+
+Your stacks will contain only integers.
 ====================================*/
-
 
 
 
 /*==================================
+#21. Stolen drone
+Your company delivers breakfast via autonomous quadcopter drones. And something mysterious
+has happened.
+Each breakfast delivery is assigned a unique ID, a positive integer. When one of the
+company's 100 drones takes off with a delivery, the delivery's ID is added to an array,
+deliveryIdConfirmations. When the drone comes back and lands, the ID is again added to the
+same array.
 
+After breakfast this morning there were only 99 drones on the tarmac. One of the drones
+never made it back from a delivery. We suspect a secret agent from Amazon placed an order
+and stole one of our patented drones. To track them down, we need to find their delivery
+ID.
+
+Given the array of IDs, which contains many duplicate integers and one unique integer,
+find the unique integer.
+
+The IDs are not guaranteed to be sorted or sequential. Orders aren't always fulfilled in
+the order they were received, and some deliveries get cancelled before takeoff.
 ====================================*/
+//use map
+function findUniqueDeliveryId(deliveryIds){
+    var idsToOccurance = new Map();
+    deliveryIds.forEach(function(deliveryId){
+        if (idsToOccurance.has(deliveryId)){
+            var newCount = idsToOccurance.get(deliveryId) + 1;
+            idsToOccurance.set(deliveryId, newCount);
+        }else {
+            idsToOccurance.set(deliveryId, 1);
+        }
+    });
+    for (var[id, count] of idsToOccurance){
+        if (count === 1){
+            return id;
+        }
+    }
+}
 
-
-
-
-/*==================================
-
-====================================*/
-
-
+//use bitwise operation
+function findUniqueDeliveryIdBinary(deliveryIds){
+    var findUniqueDeliveryId = 0;
+    deliveryIds.forEach(function(deliveryId){
+        findUniqueDeliveryId ^= deliveryId;
+    });
+    return findUniqueDeliveryId;
+}
 
 
 /*==================================
