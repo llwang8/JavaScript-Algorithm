@@ -876,158 +876,109 @@ function findUniqueDeliveryIdBinary(deliveryIds){
 
 
 /*==================================
+#22. Delete Node
+Delete a node from a singly-linked list ↴ , given only a variable pointing to that node.
+The input could, for example, be the variable b below:
 
+  function LinkedListNode(value) {
+    this.value = value;
+    this.next = null;
+}
+
+var a = new LinkedListNode('A');
+var b = new LinkedListNode('B');
+var c = new LinkedListNode('C');
+
+a.next = b;
+b.next = c;
+
+deleteNode(b);
 ====================================*/
-
+function deleteNode(nodeToDelete){
+    var next = nodeToDelete.next;
+    if (next){
+        nodeToDelete.value = next.value;
+        nodeToDelete.next = next.next;
+    }else {
+        throw new Error("can't delete the last node with this method");
+    }
+}
 
 
 
 /*==================================
+#23.Does this linked list havae a cycle?
+ou have a singly-linked list ↴ and want to check if it contains a cycle.
+A singly-linked list is built with nodes, where each node has:
 
+node.next—the next node in the list.
+node.data—the data held in the node. For example, if our linked list stores people in
+line at the movies, node.data might be the person's name.
+For example:
+
+  function LinkedListNode(value) {
+    this.value = value;
+    this.next = null;
+}
+
+A cycle occurs when a node’s next points back to a previous node in the list. The linked
+list is no longer linear with a beginning and end—instead, it cycles through a loop of
+nodes.
+
+Write a function containsCycle() that takes the first node in a singly-linked list and
+returns a boolean indicating whether the list contains a cycle.
 ====================================*/
-
+function containsCycle(firstNode){
+    var fastRunner = firstNode;
+    var slowRunner = slowRunner;
+    while (fastRunner && fastRunner.next){
+        slowRunner = slowRunner.next;
+        fastRunner = fastRunner.next.next;
+        if(slowRunner == fastRunner){
+            return true;
+        }
+    }
+    return false;
+}
 
 
 
 /*==================================
+#24. Reversed a linked list
+Hooray! It's opposite day. Linked lists go the opposite way today.
+Write a function for reversing a linked list ↴ . Do it in-place ↴ .
 
+Your function will have one input: the head of the list.
+
+Your function should return the new head of the list.
+
+Here's a sample linked list node class:
+
+  function LinkedListNode(value) {
+    this.value = value;
+    this.next = null;
+}
 ====================================*/
+functin reversedLinkedList(firstNode){
+    var previousNode = firstNode;
+    var currentNode = null;
+    var nextNode = null;
+    firstNode.next = null;
+    while (currentNode){
+        nextNode = currentNode.next;
+        currentNode.next = previousNode;
+        previousNode = currentNode;
+        currentNode = nextNode;
+    }
 
+}
 
 
 
 /*==================================
-
+#25.
 ====================================*/
 
 
 
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
-====================================*/
 
