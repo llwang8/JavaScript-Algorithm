@@ -68,7 +68,9 @@ Program.assertEqual(array, [7, 9, 11, 22, 42, 88, 99]);
 
 //insertion sort
 var insert = function(array, rightIndex, value) {
-    for(var j = rightIndex;j >= 0 && array[j] > value; j--) {
+    for(var j = rightIndex;
+        j >= 0 && array[j] > value;
+        j--) {
         array[j + 1] = array[j];
     }
     array[j + 1] = value;
@@ -238,3 +240,127 @@ drawShape(width/2, height/5, 280);
 drawShape(width/2, height/4, 180);
 drawShape(width/2, height/3, 80);
 drawShape(width/2, height/2, 80);
+
+
+//merge sort
+// Takes in an array that has two sorted subarrays,
+//  from [p..q] and [q+1..r], and merges the array
+var merge = function(array, p, q, r) {
+    var lowHalf = [];
+    var highHalf = [];
+
+    var k = p;
+    var i;
+    var j;
+    for (i = 0; k <= q; i++, k++) {
+        lowHalf[i] = array[k];
+    }
+    for (j = 0; k <= r; j++, k++) {
+        highHalf[j] = array[k];
+    }
+
+    k = p;
+    i = 0;
+    j = 0;
+
+    while(i < lowHalf.length && j < highHalf.length){
+     if (lowHalf[i] < highHalf[j]){
+        array[k] = lowHalf[i];
+        k++;
+        i++;
+     }else {
+        array[k] = highHalf[j];
+        k++;
+        j++;
+     }
+    }
+
+
+    // Once one of lowHalf and highHalf has been fully copied
+    //  back into array, copy the remaining elements from the
+    //  other temporary array back into the array
+    while(i < lowHalf.length){
+        array[k] = lowHalf[i];
+        k++;
+        i++;
+    }
+    while(j < highHalf.length){
+        array[k] = highHalf[j];
+        k++;
+        j++;
+    }
+
+};
+
+
+var array = [3, 7, 12, 14, 2, 6, 9, 11];
+merge(array, 0,
+    Math.floor((0 + array.length-1) / 2),
+    array.length-1);
+println("Array after merging: " + array);
+//Program.assertEqual(array, [2, 3, 6, 7, 9, 11, 12, 14]);
+
+
+// Takes in an array and recursively merge sorts it
+var mergeSort = function(array, p, r) {
+    var q = floor((p+r)/2);
+    if (p !== r){
+        mergeSort(array, p, q);
+        mergeSort(array, q+1, r);
+        merge(array, p, q, r);
+    }
+};
+
+var array = [14, 7, 3, 12, 9, 11, 6, 2];
+mergeSort(array, 0, array.length-1);
+println("Array after sorting: " + array);
+Program.assertEqual(array, [2, 3, 6, 7, 9, 11, 12, 14]);
+
+
+//quicksort
+// Swaps two items in an array, changing the original array
+var swap = function(array, firstIndex, secondIndex) {
+    var temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
+};
+
+var partition = function(array, p, r) {
+    // Compare array[j] with array[r], for j = p, p+1,...r-1
+    // maintaining that:
+    //  array[p..q-1] are values known to be <= to array[r]
+    //  array[q..j-1] are values known to be > array[r]
+    //  array[j..r-1] haven't been compared with array[r]
+    // If array[j] > array[r], just increment j.
+    // If array[j] <= array[r], swap array[j] with array[q],
+    //   increment q, and increment j.
+    // Once all elements in array[p..r-1]
+    //  have been compared with array[r],
+    //  swap array[r] with array[q], and return q.
+    var q = p;
+    for(var j=p; j<r; j++){
+        if (array[j] <= array[r]){
+            swap(array, j, q);
+            q++;
+        }
+    }
+    swap(array, q, r);
+    return q;
+};
+
+var array = [9, 7, 5, 11, 12, 2, 14, 3, 10, 4, 6];
+var q = partition(array, 0, array.length-1);
+println("Array after partitioning: " + array);
+Program.assertEqual(q, 4);
+Program.assertEqual(array, [5, 2, 3, 4, 6, 7, 14, 9, 10, 11, 12]);
+
+array = [5, -2, 3, 0, 6, 71, -11, 39, 10, 81, 12];
+var q = partition(array, 0, array.length-1);
+println("Array after partitioning: " + array);
+Program.assertEqual(q, 7);
+Program.assertEqual(array, [5,-2,3,0,6,-11,10,12,71,81,39]);
+
+
+
+
+

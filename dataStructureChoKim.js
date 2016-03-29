@@ -1,48 +1,4 @@
 //Algorithms and datastructure in JavaScript
-/*
-===============================================================
-Given a license plate string which contains letters and numbers, find the shortest word in
-a dictionary that contains all of the letters in the license plate.
-
-Example:
-License plate: “123 PTS”
-Dictionary: [“stripe”, “step”, “set”]
-Answer: “step”
-===============================================================
-*/
-var plate = “123 PTS”
-var dic = [“stripe”, “step”, “set”];
-Function letterToWord(plate){
-    var letters=[], result=[], min, i, index;
-    letters =plate.replace(/\d\S+/, “”).split(“”);
-    for ( i=0; i<dic.length; i++){
-        if (checkIn(dic[i]))
-result.push(dic[i]);
-}
-if (result.length === 0)
-    return “No dictionary word contains all license plate letters.”
-
-min = result[0].length;
-index = 0;
-    for (i=0; i<result.length; i++){
-    if (result[i].length < min)
-        min = result[i].length;
-        index = i;
-}
-return result[index];
-}
-
-function checkIn(word){
-    for ( i=0; i< letters.length; i++){
-        if(dic[i].indexOf(words[i]) == -1)
-            return false;
-    }
-    return true;
-}
-
-
-
-
 
 //factorial
 function factorial(n) {
