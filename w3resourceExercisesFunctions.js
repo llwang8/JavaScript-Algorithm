@@ -318,34 +318,47 @@ function randomeChars(n){
 }
 console.log(randomeChar());
 /*==============================
-21. Write a JavaScript function to get all possible subset with a fixed length (for example 2)
-combinations in an array.
+21. Write a JavaScript function to get all possible subset with a fixed length (for example
+2) combinations in an array.
 Sample array : [1, 2, 3] and subset length is 2
 Expected output : [[2, 1], [3, 1], [3, 2], [3, 2, 1]]
 ==============================?????????????*/
+//permutation way
 function subset(arr, n){
     var result = [];
-    var j, i, count;
-    var sub = [];
-    for (j=0; j<arr.length; j++){
-        arrChange = arr;
-        var first = arrChange[j];
-        arrChange.splice(j, 1)
-        for (i = 0; i<arrChange.length; i++){
-            sub.push(first);
-            while(sub.length < n && arrChange.length > 0){
-                sub.push(arrChange[i]);
-                arrChange.splice(i,1);
+    var j, i, k;
+    k = 1;
+    while(k <= n){
+        if (k === 1){
+            result = arr;
+            return result;
+        }
+
+        sub = subset(arr, n-1);
+        console.log("sub: " + sub);
+        for (i=0; i<arr.length; i++){
+            for (j=0; j<sub.length; j++ ){
+                if(typeof sub[j] !== 'object' ){
+                    if (toString(sub[j]).indexOf(arr[i]) < 0){
+                        result.push([arr[i], sub[j]]);
+                    }
+                }else{
+                    if (sub[j].indexOf(arr[i]) < 0){
+                        result.push(sub[j].push(arr[i]));
+                    }
+                }
             }
         }
-        result.push(sub);
-
-        sub = [];
+        k++;
     }
     return result;
 }
 console.log(subset([1,2,3], 2));
+//heap's way
+function subsetHeap(arr, n){
 
+}
+console.log(subsetHeap([1,2,3], 2));
 
 /*==============================
 22. Write a JavaScript function that accepts two arguments, a string and a letter and the

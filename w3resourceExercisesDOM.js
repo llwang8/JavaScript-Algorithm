@@ -1,7 +1,7 @@
 
-JavaScript DOM [13 exercises with solution]
+//JavaScript DOM [13 exercises with solution]
 
-[An editor is available at the bottom of the page to write and execute the scripts.]
+/*==============================
 
 1. Here is a sample html file with a submit button. Now modify the style of the paragraph text through javascript code. Go to the editor
 Sample HTML file :
@@ -21,7 +21,11 @@ onclick="js_style()">Style</button>
 </body>
 </html>
 Clicking on the button the font, font size, and color of the paragraph text will be changed.
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 2. Write a JavaScript function to get the values of First and Last name of the following form. Go to the editor
 Sample HTML file :
@@ -39,10 +43,18 @@ Last name: <input type="text" name="lname" value="Beckham"><br>
 </form>
 </body>
 </html>
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 3. Write a JavaScript program to set the background color of a paragraph. Go to the editor
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 4. Here is a sample html file with a submit button. Write a JavaScript function to get the value of the href, hreflang, rel, target, and type attributes of the specified link. Go to the editor
 
@@ -55,7 +67,11 @@ view plaincopy to clipboardprint?
 <p><a id="w3r" type="text/html" hreflang="en-us" rel="nofollow" target="_self" href="http://www.w3resource.com/">w3resource</a></p>
 <button onclick="getAttributes()">Click here to get  attributes value</button>
 </body></html>
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 5. Write a JavaScript function to add rows to a table. Go to the editor
 Sample HTML file :
@@ -73,7 +89,11 @@ view plaincopy to clipboardprint?
 </table><br>
 <input type="button" onclick="insert_Row()" value="Insert row">
 </body></html>
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 6. Write a JavaScript function that accept row, column, (to identify a particular cell) and a string to update the content of that cell. Go to the editor
 Sample HTML file :
@@ -93,7 +113,11 @@ view plaincopy to clipboardprint?
 </table><form>
 <input type="button" onclick="changeContent()" value="Change content">
 </form></body></html>
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 7. Write a JavaScript function that creates a table, accept row, column numbers from the user, and input row-column number as content (e.g. Row-0 Column-0) of a cell. Go to the editor
 Sample HTML file :
@@ -112,7 +136,11 @@ body {margin: 30px;}
 </table><form>
 <input type="button" onclick="createTable()" value="Create the table">
 </form></body></html>
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 8. Write a JavaScript program to remove items from a dropdown list. Go to the editor
 Sample HTML file :
@@ -130,7 +158,11 @@ view plaincopy to clipboardprint?
 <option>Black</option>
 </select>
 <input type="button" onclick="removecolor()" value="Select and Remove"><br></form></body></html>
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 9. Write a JavaScript program to count and display the items of a dropdown list, in an alert window. Go to the editor
 Sample HTML file :
@@ -153,14 +185,22 @@ Select your favorite Color :
 </select>
 <input type="button" onclick="getOptions()" value="Count and Output all items">
 </form></body></html>
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 10. Write a JavaScript program to calculate the volume of a sphere. Go to the editor
 Sample Output of the form :
 
 volume sphere html form
 
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 11. Write a JavaScript program to display a random image (clicking on a button) from the following list. Go to the editor
 Sample Image information :
@@ -168,13 +208,25 @@ Sample Image information :
 "http://farm4.staticflickr.com/3691/11268502654_f28f05966c_m.jpg", width: "240", height: "160"
 "http://farm1.staticflickr.com/33/45336904_1aef569b30_n.jpg", width: "320", height: "195"
 "http://farm6.staticflickr.com/5211/5384592886_80a512e2c9.jpg", width: "500", height: "343"
+==============================*/
 
-Click me to see the solution
+
+
+/*==============================
 
 12. Write a JavaScript program to highlight the bold words of the following paragraph, on mouse over a certain link. Go to the editor
 Sample link and text :
 [On mouse over here bold words of the following paragraph will be highlighted]
 We have just started this section for the users (beginner to intermediate) who want to work with various JavaScript problems and write scripts online to test their JavaScript skill.
-Click me to see the solution
+==============================*/
+
+
+
+/*==============================
 
 13. Write a JavaScript program to get the width and height of the window (any time the window is resized).
+==============================*/
+
+
+
+/*==============================

@@ -77,7 +77,6 @@ console.log(countVowels('United States'));
 /*==============================
 
 9. Write a JavaScript function to check whether a given value is an valid url or not.
-
 ==============================*/
 
 
