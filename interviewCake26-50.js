@@ -57,20 +57,73 @@ words are separated by one space.
 
 
 /*==================================
+#28. Parenthesis matching
+I like parentheticals (a lot).
+"Sometimes (when I nest them (my parentheticals) too much (like this (and this))) they get
+confusing."
+
+Write a function that, given a sentence like the one above, along with the position of an
+opening parenthesis, finds the corresponding closing parenthesis.
+
+Example: if the example string above is input with the number 10 (position of the first
+parenthesis), the output should be 79 (position of the last parenthesis).
+====================================*/
+function getClosingParen(sentence, openParenIndex){
+    var parenCounts = 0;
+    for (var i=openParenIndex + 1; i<sentence.length; i++){
+        var char = sentence[i];
+        if (char === "("){
+            parenCounts += 1;
+        }else if (char === ")"){
+            if (parenCounts === 0){
+                return i;
+            }else {
+                parenCounts -= 0;
+            }
+        }
+    }
+    throw new Error ("no cloing parenthesis for :(");
+}
+
+
+/*==================================
+#29. Bracket validator
+You're working with an intern that keeps coming to you with JavaScript code that won't
+run because the braces, brackets, and parentheses are off. To save you both some time,
+you decide to write a braces/brackets/parentheses validator.
+Let's say:
+
+'(', '{', '[' are called "openers."
+')', '}', ']' are called "closers."
+Write an efficient function that tells us whether or not an input string's openers and
+closers are properly nested.
+
+Examples:
+
+"{ [ ] ( ) }" should return true
+"{ [ ( ] ) }" should return false
+"{ [ }" should return false
 
 ====================================*/
 
 
 
-/*==================================
-
-====================================*/
-
-
-
 
 /*==================================
+#30. Palindrome permutation
+Write an efficient function that checks whether any permutation ↴ of an input string is
+a palindrome ↴ .
+Examples:
 
+"civic" should return true
+"ivicc" should return true
+"civil" should return false
+"livci" should return false
+"But 'ivicc' isn't a palindrome!"
+If you had this thought, read the question again carefully. We're asking if any
+permutation of the string is a palindrome. Spend some extra time ensuring you fully
+understand the question before starting. Jumping in with a flawed understanding of
+the problem doesn't look good in an interview.
 ====================================*/
 
 
