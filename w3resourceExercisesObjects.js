@@ -38,7 +38,7 @@ name : "David Rayy",
 sclass : "VI",
 rollno : 12 };
 ==============================*/
-return Object.keys(student).length;
+return Object.getPropertyNames(student).length;
 
 
 /*==============================
@@ -116,16 +116,19 @@ console.log(bubbleSort([6,4,0, 3,-2,1]));
 Sample Data : dog
 Expected Output : ["d", "do", "dog", "o", "og", "g"]
 ==============================*/
-String.prototype.subStr = function(str){
+String.prototype.subStr = function(){
   var result = [];
   for (var i=0; i<this.length; i++){
-    for (var j=i+i; j<this.length; j++){
+    for (var j=i+1; j<this.length+1; j++){
       result.push(this.slice(i, j));
     }
   }
   return result;
 }
 console.log("dog".subStr());
+
+
+
 
 /*==============================
 
