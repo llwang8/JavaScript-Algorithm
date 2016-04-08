@@ -105,7 +105,35 @@ Examples:
 "{ [ }" should return false
 
 ====================================*/
+function validBracket(str){
+    var openersClosers = {
+        "(": ")",
+        "{": "}",
+        "[": "]"
+    };
+    var openers = new Set(["(", "{". "["]);
+    var closers = new Set([")", "}", "]"]);
+    var openersStack = [];
 
+    for (var i=0; i<str.length; i++){
+        var char = str.charAt(i);
+        if (openers.has(char)){
+            openersStack.push(char);
+        }
+        if (closers.has(char)){
+            if(!openersStack.length){
+                return false;
+            }else {
+                var lastUnclosedOpener = openersStack.pop();
+                if (openersClosers[lastUnclosedOpener] != char){
+                    return false
+                }
+            }
+        }
+    }
+    return openersStack.length === 0;
+
+}
 
 
 
@@ -125,36 +153,121 @@ permutation of the string is a palindrome. Spend some extra time ensuring you fu
 understand the question before starting. Jumping in with a flawed understanding of
 the problem doesn't look good in an interview.
 ====================================*/
-
+function palindromePermutation(str){
+    var unpairedChar = new Set();
+    for (var i=0; i<str.length; i++){
+        var char = str[i];
+        if(unpairedChar.has(char)){
+            unpairedChar.delete(char);
+        }ele {
+            unpairedChar.add(char);
+        }
+    }
+    return unpairedChar.length <= 1;
+}
 
 
 
 /*==================================
+#31. Recursive Permutation
+Write a recursive function for generating all permutations of an input string. Return them as a set.
+Don't worry about time or space complexity—if we wanted efficiency we'd write an iterative version.
+
+To start, assume every character in the input string is unique.
+
+Your function can have loops—it just needs to also be recursive.
+====================================*/
+function recursivePermutation(string){
+    if (string.length <= 1){
+        return new Set(string);
+    }
+    var allCharExceptLast = string.slice(0, -1);
+    var lastChar = string[string.length -1];
+
+    var permutationsAllExceptLast = recursivePermutation(allCharExceptLast);
+
+    var permutations = new Set();
+    permutationsAllExceptLast.forEach(function(permutationAllExceptLast){
+        for (var position=0, position<allCharExceptLast.length; position++){
+            var permutation = permutationAllExceptLast.slice(0, position) + lastChar +
+                              permutationAllExceptLast.slice(position);
+            permutations.add(permutation);
+        }
+    });
+    return permutations;
+}
+
+/*==================================
+#32. Top Score
+You created a game that is more popular than Angry Birds.
+You rank players in the game from highest to lowest score. So far you're using an algorithm
+that sorts in O(nlgn) time, but players are complaining that their rankings aren't updated
+fast enough. You need a faster sorting algorithm.
+
+Write a function that takes:
+
+an array of unsortedScores
+the highestPossibleScore in the game
+and returns a sorted array of scores in less than O(nlgn) time.
+====================================*/
+function topScore(arr, maxValue){
+    var numCounts = [];
+    for (var i=0; i<maxValue; i++){
+        numCounts.push(i);
+    }
+    arr.forEach(function(num){
+        numCounts[num] ++;
+    });
+    var sortedArray = [];
+    for (var num=0; i<numCounts.length; num++){
+        var count = numCounts[num];
+        for(var i=0; i<count; i++){
+            sortedArray.push(num);
+        }
+    }
+    return sortedArray;
+}
+
+
+
+/*==================================
+#33. Which appears first
+I have an array where every number in the range
+1...n appears once except for one number which appears twice.
+Write a function for finding the number that appears twice.
 
 ====================================*/
+function findDuplicate(arr){
+    var n = arr[-1];
+    var sumN = n * (n + 1) / 2;
+    var arrTotal = arr.reduce(function(total, cur){
+        total += cur;
+    });
+    return arrTotal - sumN;
 
-
-
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
+}
 
 /*==================================
+#34. World Cloud Date
+You want to build a word cloud, an infographic where the size of a word corresponds
+to how often it appears in the body of text.  To do this, you'll need data. Write
+code that takes a long string and builds its word cloud data in a map ↴ , where the
+keys are words and the values are the number of times the words occured.
 
-====================================*/
+We'll use a JavaScript Map instead of an object because it's more explicit—we're
+mapping words to counts. And it'll be easier and cleaner when we want to iterate
+over our data.
 
+Think about capitalized words. For example, look at these sentences:
 
+'After beating the eggs, Dana read the next step:'
+'Add milk and eggs, then add flour and sugar.'
+What do we want to do with "After", "Dana", and "add"? In this example, your final
+map should include one "Add" or "add" with a value of
+2. Make reasonable (not necessarily perfect) decisions about cases like "After" and
+"Dana".
 
-
-/*==================================
-
+Assume the input will only contain words and standard punctuation.
 ====================================*/
 
 

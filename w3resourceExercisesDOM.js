@@ -60,7 +60,19 @@ function getFormvalue(){
 
 }
 /*==============================
-3. Write a JavaScript program to set the background color of a paragraph. Go to the editor
+3. Write a JavaScript program to set the background color of a paragraph.
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+</head>
+<body>
+<input type="button" value="Click to set paragraph background color" onclick="set_background()">
+<p>w3resource JavaScript Exercises</p>
+<p>w3resource PHP Exercises</p>
+</body>
+</html>
 ==============================*/
 function setBackground(){
     var docBody = document.getElementsByTagName("body")[0];
@@ -128,7 +140,7 @@ function insert_Row(){
 /*==============================
 
 6. Write a JavaScript function that accept row, column, (to identify a particular cell)
-and a string to update the content of that cell. Go to the editor
+and a string to update the content of that cell.
 Sample HTML file :
 
 view plaincopy to clipboardprint?
