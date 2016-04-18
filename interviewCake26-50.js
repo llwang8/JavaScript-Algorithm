@@ -276,11 +276,28 @@ Assume the input will only contain words and standard punctuation.
 
 
 /*==================================
+#35 in-Place shuffle
+Write a function for doing an in-place ↴ shuffle of an array.
+The shuffle must be "uniform," meaning each item in the original array must have
+the same probability of ending up in each spot in the final array.
 
+Assume that you have a function getRandom(floor, ceiling) for getting a random integer
+that is >=floor and <=ceiling.
 ====================================*/
 
-
-
+function getRandom(floor, ceiling){
+    return Match.floor(Math.random() * (Ceiling -floor +) + floor);
+}
+function shuffle(array){
+    var indexChosed, indexRandomChosed, temp;
+    if (array.length <=1) return;
+    for (indexChosed=0; indexChosed<array.length; i++){
+        indexRandomChosed = getRandom(indexChosed, array.length - 1);
+        temp = array(indexChosed);
+        array[indexChosed] = array[indexRandomChosed];
+        array[indexRandomChosed] = temp;
+    }
+}
 
 /*==================================
 

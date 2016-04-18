@@ -1526,15 +1526,50 @@ it might read something like this...
 "For every movie list, retrieve only those videos with a rating of 5.0"
 
 =====================================*/
+function(sprite, spriteContainer) {
+    var spriteMouseDowns = Observable.fromEvent(sprite, "mousedown"),
+        spriteContainerMouseMoves = Observable.fromEvent(spriteContainer, "mousemove"),
+        spriteContainerMouseUps = Observable.fromEvent(spriteContainer, "mouseup"),
+        spriteMouseDrags =
+            // For every mouse down event on the sprite...
+      spriteMouseDowns.
+            concatMap(function(contactPoint) {
+                    // ...retrieve all the mouse move events on the sprite container...
+                return spriteContainerMouseMoves.
+                        // ...until a mouse up event occurs.
+                    takeUntil(spriteContainerMouseUps);
+    });
 
 
+                // --------------------------------------------------------
+                //                    INSERT CODE HERE
+                // --------------------------------------------------------
+                // Complete this expression...
+                // For every mouse down event, return the mouse move event
+                // sequence until a mouse up event occurs.
+
+    // For each mouse drag event, move the sprite to the absolute page position.
+    spriteMouseDrags.forEach(function(dragPoint) {
+        sprite.style.left = dragPoint.pageX + "px";
+        sprite.style.top = dragPoint.pageY + "px";
+    });
+}
 
 
 
 
 /*====================================
+Exercise 33: Improving our mouse drag event
 
+Our mouse drag event is a little too simple. Notice that when we drag around the sprite,
+it always positions itself at the top-left corner of the mouse. Ideally we'd like our drag
+event to offset its coordinates, based on where the mouse was when the mouse down event occurred.
+This will make our mouse drag more closely resemble moving a real object with our finger.
 
+Let's see if you can adjust the coordinates in the mouse drag event, based on the mousedown
+location on the sprite. The mouse events are sequences, and they look something like this:
+spriteContainerMouseMoves =
+    seq([ {x: 200, y: 400, offsetX: 10, offsetY: 15},,,{x: 210, y: 410, offsetX: 20, offsetY: 26},,, ])
 =====================================*/
 
 
