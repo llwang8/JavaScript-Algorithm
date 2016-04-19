@@ -283,6 +283,8 @@ the same probability of ending up in each spot in the final array.
 
 Assume that you have a function getRandom(floor, ceiling) for getting a random integer
 that is >=floor and <=ceiling.
+This is a semi-famous algorithm known as the Fisher-Yates shuffle (sometimes called
+the Knuth shuffle).
 ====================================*/
 
 function getRandom(floor, ceiling){
@@ -300,30 +302,107 @@ function shuffle(array){
 }
 
 /*==================================
+#36 Single Riffle Shuffle
+I figured out how to get rich: online poker.
+I suspect the online poker game I'm playing shuffles cards by doing a single " riffle ↴ ."
 
+To prove this, let's write a function to tell us if a full deck of cards shuffledDeck is
+a single riffle of two other halves half1 and half2.
+
+We'll represent a stack of cards as an array of integers in the range 1..52
+(since there are 52 distinct cards in a deck).
+
+Why do I care? A single riffle is not a completely random shuffle. If I'm right, I can
+make more informed bets and get rich and finally prove to my ex that I am not a "loser
+with an unhealthy cake obsession" (even though it's too late now because she let me go
+and she's never getting me back).
+====================================*/
+function isSingleRiffleRecursive(half1, half2, shuffledDeck){
+    if (shuffledDeck.length === 0){
+        return true;
+    }
+    if (half1.length && half1[0] == shuffledDeck[0]){
+        return isSingleRiffleRecursive(half1.slice(1), half2, shuffledDeck.slice(0));
+    }else if (half2.length && half2[0] = shuffledDeck[0]) {
+        return isSingleRiffleRecursive(half1, half2.slice(1), shuffledDeck.slice(0));
+    }else {
+        return false;
+    }
+}
+
+function isSingleRiffleRecursiveOptimized(half1, half2, shuffledDeck, half1Index, half2Index, shuffledDeckIndex){
+    shuffledDeckIndex = shuffledDeckIndex || 0;
+    half1Index = half1Index || 0;
+    half2Index = half2Index || 0;
+    if (shuffledDeckIndex = shuffledDeck.length){
+        return true;
+    }
+    if ((half1Index < half1Index.length) &&
+        (half1[half1Index] == shuffledDeck[shuffledDeckIndex])){
+        half1Index ++;
+    }else if ((half2Index < half2Index.length) &&
+        (half2Index[half2Index] == shuffledDeck[shuffledDeckIndex])){
+        half2Index ++;
+    }esel {
+        return false;
+    }
+    shuffledDeckIndex++;
+    return isSingleRiffleRecursiveOptimized(half1, half2, shuffledDeck, half1Index, half2Index, shuffledDeckIndex);
+}
+
+function isSingleRiffle(half1, half2, shuffledDeck){
+    var half1Index = 0;
+    var half2Index = 0;
+    var half1MaxIndex = half1.length -1;
+    var half2MaxIndex = half2.length -1;
+    for (var i=0; i<shuffledDeck.length; i++){
+        var card = shuffledDeck[i];
+        if (half1Index < = half1MaxIndex && card === half1[half1Index]){
+            half1Index++;
+        }else if (half2Index <= half2MaxIndex && card === half2[half2MaxIndex]){
+            half2Index++;
+        }else {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+/*==================================
+#37 Simulate 5-side die
+You have a function rand7() that generates a random integer from 1 to 7. Use it to write
+a function rand5() that generates a random integer from 1 to 5.
+rand7() returns each integer with equal probability. rand5() must also return each integer
+with equal probability.
+====================================*/
+
+
+
+
+
+
+/*==================================
+#38 simulate 5-side die
+You have a function rand7() that generates a random integer from 1 to 7. Use it to write a
+function rand5() that generates a random integer from 1 to 5.
+rand7() returns each integer with equal probability. rand5() must also return each integer
+with equal probability.
 ====================================*/
 
 
 
 
 /*==================================
+#39 Two-egg problem
+A building has 100 floors. One of the floors is the highest floor an egg can be dropped from
+without breaking.
+If an egg is dropped from above that floor, it will break. If it is dropped from that floor
+or below, it will be completely undamaged and you can drop the egg again.
 
-====================================*/
-
-
-
-
-
-
-/*==================================
-
-====================================*/
-
-
-
-
-/*==================================
-
+Given two eggs, find the highest floor an egg can be dropped from without breaking, with as
+few drops as possible.
 ====================================*/
 
 
