@@ -377,20 +377,34 @@ a function rand5() that generates a random integer from 1 to 5.
 rand7() returns each integer with equal probability. rand5() must also return each integer
 with equal probability.
 ====================================*/
+function rand5(){
+    var result = 7;
+    while (result > 5){
+        result = rand7();
+    }
+    return result;
+}
 
-
-
-
-
+function rand5Recursive(){
+    var roll = rand7();
+    return roll <= 5 ? roll : rand5Recursive();
+}
 
 /*==================================
-#38 simulate 5-side die
-You have a function rand7() that generates a random integer from 1 to 7. Use it to write a
-function rand5() that generates a random integer from 1 to 5.
-rand7() returns each integer with equal probability. rand5() must also return each integer
-with equal probability.
+You have a function rand5() that generates a random integer from 1 to 5. Use it to
+write a function rand7() that generates a random integer from 1 to 7.
+rand5() returns each integer with equal probability. rand7() must also return each
+integer with equal probability.
 ====================================*/
-
+function rand7(){
+    while(true){
+        var roll1 = rand5();
+        var roll2 = rand5();
+        var outcomeNum = (roll1 - 1) * 5 + (roll2 - 1) + 1;
+        if (outcomeNum > 21) continue;
+        return outcomeNum % 7 + 1;
+    }
+}
 
 
 
@@ -409,15 +423,76 @@ few drops as possible.
 
 
 /*==================================
+#40 find repeat, space edition
+We have an array of integers, where:
 
+The integers are in the range 1..n
+The array has a length of n+1
+It follows that our array has at least one integer which appears at least twice. But it may
+have several duplicates, and each duplicate may appear more than twice.
+
+Write a function which finds any integer that appears more than once in our array.
+
+We're going to run this function on our new, super-hip Macbook Pro With Retina Display™.
+Thing is, the damn thing came with the RAM soldered right to the motherboard, so we can't
+upgrade our RAM. So we need to optimize for space!
 ====================================*/
+function findRepeatUsingSet(numbers){  //O(n) time and O(n) space
+    var numbersSeen = new Set();
+    for (var i=0; i<numbers.length; i++){
+        if (numbersSeen.has(numbers[i])){
+            return numbers[i];
+        }else {
+            numbersSeen.add(numbers[i]);
+        }
+    }
+    return "no duplicate found";
+}
+function findRepeatBruteForce(numbers){
+    var i, j, found, num;
+    for (i=0; i<numbers.length; i++){
+        found = false;
+        num = numbers[i];
+        for (j=0; i<numbers.length; j++){
+            if (num == numbers[j]){
+                if (found){
+                    return num;
+                }else {
+                    found = false;
+                }
+            }
+        }
+    }
+    return "no duplicate found";
+}
 
+function findRepeat(numArr){
+    var floor = 1,
+        ceiling = numArr.length -1;
 
-
-
-
-
-
+    while (floor < ceiling){
+        var midpoint = Math.floor(floor + (ceiling - floor)/2),
+            lowerRangeFloor = floor,
+            lowerRangeCeiling = midpoint,
+            upperRangeFloor = midpoint + 1,
+            upperRangeCeiling = ceiling,
+            distinctPossibleIntergerInLowerRange = lowerRangeCeiling - lowerRangeFloor + 1,
+            itemsInLowerRange = 0;
+        numArr.forEach(function(item)){
+            if (item >= lowerRangeFloor && item <= lowerRangeCeiling){
+                itemsInLowerRange++;
+            }
+        });
+        if (itemsInLowerRange > distinctPossibleIntergerInLowerRange){
+            floor = lowerRangeFloor;
+            ceiling = lowerRangeCeiling;
+        }else {
+            floor = upperRangeFloor;
+            ceiling = upperRangeCeiling;
+        }
+    }
+    return floor;
+}
 
 /*==================================
 
