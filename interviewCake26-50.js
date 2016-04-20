@@ -495,29 +495,89 @@ function findRepeat(numArr){
 }
 
 /*==================================
+#41 Find a duplicate, Space Edition™ BEAST MODE
+In Find a duplicate, Space Edition™, we were given an array of integers where:
 
+the integers are in the range 1..n
+the array has a length of n+1
+These properties mean the array must have at least 1 duplicate. Our challenge
+was to find a duplicate number, while optimizing for space. We used a divide
+and conquer approach, iteratively cutting the array in half to find a duplicate
+integer in
+O(nlgn) time and O(1) space (sort of a modified binary search).
 ====================================*/
 
 
 
 
 /*==================================
+#42 Find duplicate files.
+You left your computer unlocked and your friend decided to troll you by copying
+a lot of your files to random spots all over your file system.
+Even worse, she saved the duplicate files with random, embarrassing names
+("this_is_like_a_digital_wedgie.txt" was clever, I'll give her that).
 
+Write a function that returns an array of all the duplicate files. We'll
+check them by hand before actually deleting them, since programmatically deleting
+files is really scary. To help us confirm that two files are actually duplicates,
+return an array of arrays ↴ where:
+
+the first item is the duplicate file
+the second item is the original file
+For example:
+
+  [ ['/tmp/parker_is_dumb.mpg', '/home/parker/secret_puppy_dance.mpg'],
+  ['/home/trololol.mov', '/etc/apache2/httpd.conf'] ]
+You can assume each file was only duplicated once.
+
+Since we'll be traversing our file system, we can't solve this with plain JavaScript. We use Node for our solution. You can also change to a server-side language for this challange.
 ====================================*/
 
 
 
 
 /*==================================
+#43 Merge sorted array
+In order to win the prize for most cookies sold, my friend Alice and I are going to merge our Girl Scout Cookies orders and enter as one unit.
+Each order is represented by an "order id" (an integer).
 
+We have our lists of orders sorted numerically already, in arrays. Write a function to merge our arrays of orders into one sorted array.
+
+For example:
+
+  var myArray     = [3, 4, 6, 10, 11, 15];
+var alicesArray = [1, 5, 8, 12, 14, 19];
+
+console.log(mergeArrays(myArray, alicesArray));
+// logs [1, 3, 4, 5, 6, 8, 10, 11, 12, 14, 15, 19]
 ====================================*/
 
+function mergeSortedArrayBuiltInMethods(arrA, arrB){
+    var mergedArray = arrA.concat(arrB);
+    return mergedArry.sort(function(a, b){return a - b;});
+}
 
+function mergeSortedArray(arrA, arrB){
+    var mergeArray = [];
+    var currentIndexA = 0;
+    var currentIndexB = 0;
+    var currentIndexMerged = 0;
 
-
-
-
-
+    while (currentIndexMerged < arrA.length + arrB.length){
+        var isAarrayExhausted = currentIndexA >= arrA.length;
+        var isBarrayExhausted = currentIndexB >= arrB.length;
+        if ((!isAarrayExhausted && isBarrayExhausted ||
+            (arrA[currentIndexA] < arrB[currentIndexB])){
+            mergedArray[currentIndexMerged] = arrA[currentIndexA];
+            currentIndexA++;
+        }else {
+            mergedArray[currentIndexMerged] = arrB[currentIndexB];
+            currentIndexB++;
+        }
+        currentIndexMerged++;
+    }
+    return mergedArray;
+}
 
 /*==================================
 
